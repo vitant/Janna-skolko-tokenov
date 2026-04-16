@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мышка Жанна 🐭</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-size: 2.5rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .scene {
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+        
+        /* Стол */
+        .table {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 20px;
+            background: #8B4513;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* Мышка */
+        .mouse {
+            position: absolute;
+            bottom: 25px;
+            left: 80px;
+            width: 120px;
+            height: 100px;
+        }
+        
+        .mouse-body {
+            position: absolute;
+            bottom: 0;
+            width: 100px;
+            height: 70px;
+            background: #d4a574;
+            border-radius: 50px 50px 40px 40px;
+            animation: eating 0.3s ease-in-out infinite;
+        }
+        
+        @keyframes eating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        .mouse-head {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            width: 70px;
+            height: 60px;
+            background: #d4a574;
+            border-radius: 35px;
+        }
+        
+        .mouse-ear {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: #f5c6a5;
+            border-radius: 50%;
+            border: 3px solid #d4a574;
+        }
+        
+        .mouse-ear.left {
+            bottom: 70px;
+            left: 55px;
+        }
+        
+        .mouse-ear.right {
+            bottom: 75px;
+            left: 85px;
+        }
+        
+        .mouse-eye {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
+            bottom: 55px;
+        }
+        
+        .mouse-eye.left { left: 80px; }
+        .mouse-eye.right { left: 105px; }
+        
+        .mouse-eye::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+        }
+        
+        .mouse-nose {
+            position: absolute;
+            bottom: 40px;
+            left: 120px;
+            width: 15px;
+            height: 12px;
+            background: #ff9999;
+            border-radius: 50%;
+        }
+        
+        .mouse-whisker {
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #333;
+            bottom: 45px;
+        }
+        
+        .mouse-whisker:nth-child(1) { left: 130px; transform: rotate(-10deg); }
+        .mouse-whisker:nth-child(2) { left: 132px; bottom: 42px; }
+        .mouse-whisker:nth-child(3) { left: 130px; transform: rotate(10deg); bottom: 39px; }
+        
+        /* Хвостик */
+        .mouse-tail {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 50px;
+            height: 8px;
+            background: #d4a574;
+            border-radius: 10px;
+            transform-origin: right center;
+            animation: wagTail 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes wagTail {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+        
+        /* Сыр */
+        .cheese {
+            position: absolute;
+            bottom: 25px;
+            left: 200px;
+            width: 60px;
+            height: 50px;
+            background: #ffd700;
+            clip-path: polygon(0% 50%, 50% 0%, 100% 50%, 50% 100%);
+            animation: cheeseWiggle 0.3s ease-in-out infinite;
+        }
+        
+        @keyframes cheeseWiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        
+        .cheese-hole {
+            position: absolute;
+            background: #ffed4a;
+            border-radius: 50%;
+        }
+        
+        .cheese-hole:nth-child(1) { width: 10px; height: 10px; top: 15px; left: 15px; }
+        .cheese-hole:nth-child(2) { width: 8px; height: 8px; top: 25px; left: 35px; }
+        .cheese-hole:nth-child(3) { width: 6px; height: 6px; top: 10px; left: 30px; }
+        
+        /* Экран/Монитор */
+        .monitor {
+            position: absolute;
+            right: 50px;
+            bottom: 25px;
+            width: 180px;
+            height: 130px;
+            background: #333;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .monitor-screen {
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .monitor-text {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .monitor-numbers {
+            color: #00ffff;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+            animation: flicker 0.5s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .monitor-stand {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 20px;
+            background: #444;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .monitor-base {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 8px;
+            background: #444;
+            border-radius: 3px;
+        }
+        
+        /* Клавиатура */
+        .keyboard {
+            position: absolute;
+            right: 60px;
+            bottom: -5px;
+            width: 160px;
+            height: 40px;
+            background: #555;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2px;
+            padding: 5px;
+        }
+        
+        .key {
+            background: #777;
+            border-radius: 2px;
+            animation: keyPress 1s infinite;
+        }
+        
+        @keyframes keyPress {
+            0%, 90%, 100% { transform: scale(1); background: #777; }
+            95% { transform: scale(0.9); background: #999; }
+        }
+        
+        /* Крошки */
+        .crumb {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: fall 2s ease-in infinite;
+        }
+        
+        .crumb:nth-child(1) { left: 170px; bottom: 70px; animation-delay: 0s; }
+        .crumb:nth-child(2) { left: 190px; bottom: 65px; animation-delay: 0.3s; }
+        .crumb:nth-child(3) { left: 210px; bottom: 75px; animation-delay: 0.6s; }
+        
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(50px); opacity: 0; }
+        }
+        
+        /* Часики */
+        .clock {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐭 Жанна кушает! 🍽️</h1>
+    
+    <div class="scene">
+        <!-- Часы -->
+        <div class="clock" id="clock">00:00:00</div>
+        
+        <!-- Крошки -->
+        <div class="crumb"></div>
+        <div class="crumb"></div>
+        <div class="crumb"></div>
+        
+        <!-- Мышка -->
+        <div class="mouse">
+            <div class="mouse-tail"></div>
+            <div class="mouse-body"></div>
+            <div class="mouse-head"></div>
+            <div class="mouse-ear left"></div>
+            <div class="mouse-ear right"></div>
+            <div class="mouse-eye left"></div>
+            <div class="mouse-eye right"></div>
+            <div class="mouse-nose"></div>
+            <div class="mouse-whisker"></div>
+            <div class="mouse-whisker"></div>
+            <div class="mouse-whisker"></div>
+        </div>
+        
+        <!-- Сыр -->
+        <div class="cheese">
+            <div class="cheese-hole"></div>
+            <div class="cheese-hole"></div>
+            <div class="cheese-hole"></div>
+        </div>
+        
+        <!-- Монитор -->
+        <div class="monitor">
+            <div class="monitor-screen">
+                <div class="monitor-text">TOKENS:</div>
+                <div class="monitor-numbers" id="tokens">42</div>
+            </div>
+            <div class="monitor-stand"></div>
+            <div class="monitor-base"></div>
+        </div>
+        
+        <!-- Клавиатура -->
+        <div class="keyboard">
+            <div class="key"></div><div class="key"></div><div class="key"></div>
+            <div class="key"></div><div class="key"></div><div class="key"></div>
+            <div class="key"></div><div class="key"></div><div class="key"></div>
+            <div class="key"></div><div class="key"></div><div class="key"></div>
+        </div>
+        
+        <!-- Стол -->
+        <div class="table"></div>
+    </div>
+    
+    <p class="message">Жанна работает и кушает одновременно~ 💕</p>
+    
+    <script>
+        // Обновляем время
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('ru-RU');
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+        
+        // Рандомные токены
+        function updateTokens() {
+            document.getElementById('tokens').textContent = Math.floor(Math.random() * 100);
+        }
+        setInterval(updateTokens, 2000);
+        updateTokens();
+    </script>
+</body>
+</html>
